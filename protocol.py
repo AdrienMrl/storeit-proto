@@ -1,5 +1,7 @@
 import socket
 
+#TODO: handle larger files
+
 class Proto:
     def __init__(self, port = 1234, host = socket.gethostname()):
         self.s = socket.socket()
@@ -7,21 +9,16 @@ class Proto:
         self.s.connect((host, port))
 
     def send(self, msg):
+        print('sending ' + msg)
         self.s.send(bytearray(msg + "\r\n", 'utf-8'))
 
     def recv(self):
-        data = str()
         buf = str()
 
-        while True:
-            buf += s.recv(2048)
-            if buf == '':
-                break
-            data += buf
-        data = data.decode('utf-8')
-        for command in data.split('\r\n')
-            yield command
-        return ''
+        buf = self.s.recv(2048).decode('utf-8')
+        if not buf:
+            return
+        return buf.split('\r\n')[:-1]
 
 
     def __del__(self):

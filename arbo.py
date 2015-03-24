@@ -13,11 +13,15 @@ class Arbo:
                 md5.update(data)
             return (name, md5.hexdigest())
 
+    def write_file(name, content = ''):
+        with open(name, 'w+') as f:
+            f.write(content)
+
     def get(path = "."):
         
         exclude = ['.storeit']
 
-        fichier=[]  
+        fichier = []
         for root, dirs, files in os.walk(path):  
             for i in files:  
                 if filter(lambda name: not i.endwith(name), exclude):
